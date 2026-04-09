@@ -1,0 +1,66 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@fintrack/core/*": ["packages/core/src/*"],
+      "@fintrack/core": ["packages/core/src"],
+      "@fintrack/ui/*": ["packages/ui-kit/src/*"],
+      "@fintrack/ui": ["packages/ui-kit/src"],
+      "@fintrack/store/*": ["packages/store/src/*"],
+      "@fintrack/store": ["packages/store/src"],
+      "@fintrack/api/*": ["packages/api/src/*"],
+      "@fintrack/api": ["packages/api/src"],
+      "@/features/*": ["features/*"],
+      "@/features": ["features"],
+      "@/shared/*": ["packages/core/src/shared/*"],
+      "@/mocks/*": ["mocks/*"]
+    },
+    "sourceMap": true,
+    "removeComments": false,
+    "noEmit": true,
+    "incremental": true,
+    "tsBuildInfoFile": ".tsbuildinfo"
+  },
+
+  "include": [
+    "packages/*/src/**/*",
+    "packages/*/src/**/*.json",
+    "apps/*/src/**/*",
+    "apps/*/app/**/*",
+    "apps/*/index.tsx",
+    "features/**/*",
+    "features/**/*.ts",
+    "features/**/*.tsx",
+    "mocks/**/*",
+    "server/**/*",
+    "*.config.ts",
+    "*.config.js"
+  ],
+
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    ".expo",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/__tests__",
+    "**/__mocks__"
+  ]
+}

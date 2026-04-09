@@ -1,0 +1,28 @@
+# Зависимости
+node_modules/
+**/node_modules/
+
+# Сборки
+dist/
+build/
+.expo/
+.turbo/
+coverage/
+
+# Логи и временные файлы
+*.log
+*.tmp
+
+# Lock файлы
+package-lock.json
+**/package-lock.json
+
+# Сгенерированные файлы
+*.d.ts
+*.min.js
+*.min.css
+
+# Платформо-специфичные
+apps/mobile/ios/
+apps/mobile/android/
+apps/mobile/.expo/

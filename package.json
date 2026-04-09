@@ -1,0 +1,43 @@
+{
+  "name": "fintrack-pro",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "clean": "watchman watch-del-all && rm -rf react $TMPDIR/react-* && rm -rf $TMPDIR/haste-map-react-native-packager-* && rm -rf node_modules/ && rm -rf packages/*/node_modules/ && rm -rf apps/*/node_modules/ && npm cache verify",
+    "prepare": "husky",
+    "lint": "eslint . --ext .ts,.tsx",
+    "format": "prettier --write .",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "7.18.0",
+    "@typescript-eslint/parser": "7.18.0",
+    "eslint": "8.57.1",
+    "eslint-plugin-import": "2.32.0",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-react": "7.37.5",
+    "eslint-plugin-react-hooks": "7.0.1",
+    "eslint-plugin-react-native": "5.0.0",
+    "husky": "9.1.7",
+    "lint-staged": "15.5.2",
+    "prettier": "3.8.1",
+    "typescript": "5.4.5"
+  },
+  "workspaces": [
+    "packages/core",
+    "packages/ui-kit",
+    "packages/store",
+    "packages/api",
+    "apps/web",
+    "apps/mobile"
+  ],
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  }
+}
