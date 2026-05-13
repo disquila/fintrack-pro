@@ -24,3 +24,17 @@ export type TExpenseCategory = (typeof CATEGORIES.expense)[number];
 // "Food" | "Transport" | "Entertainment" | "Shopping" | "Bills" | "Health" | "Other"
 
 export type TCategory = TIncomeCategory | TExpenseCategory;
+
+export interface ICategory {
+  id: string;
+  name: TCategory;
+  icon: string;
+  color: string;
+  type: 'income' | 'expense';
+}
+
+export interface ICategoriesState {
+  items: ICategory[];
+  isLoading: boolean;
+  error: string | null;
+}

@@ -10,8 +10,13 @@
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
+    "@types/node": "25.7.0",
+    "@types/react": "19.0.0",
+    "@types/react-dom": "19.0.0",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
+    "@vitejs/plugin-react": "6.0.1",
+    "autoprefixer": "10.5.0",
     "eslint": "8.57.1",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
@@ -20,8 +25,11 @@
     "eslint-plugin-react-native": "5.0.0",
     "husky": "9.1.7",
     "lint-staged": "15.5.2",
+    "postcss": "8.5.14",
     "prettier": "3.8.1",
-    "typescript": "5.4.5"
+    "tailwindcss": "4.3.0",
+    "typescript": "5.4.5",
+    "vite": "8.0.12"
   },
   "workspaces": [
     "packages/core",
@@ -39,5 +47,10 @@
     "*.{json,md,yml,yaml}": [
       "prettier --write"
     ]
+  },
+  "dependencies": {
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-router-dom": "7.0.0"
   }
 }

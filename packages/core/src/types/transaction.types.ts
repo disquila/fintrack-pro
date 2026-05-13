@@ -28,3 +28,11 @@ export interface ITransactionFilters {
   minAmount?: number;
   maxAmount?: number;
 }
+
+export interface ITransactionsState {
+  items: ITransaction[];
+  isLoading: boolean;
+  error: string | null;
+  totalIncome: number;
+  totalExpense: number;
+}
