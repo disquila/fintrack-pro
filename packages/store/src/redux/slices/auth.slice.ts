@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
-import { authApi } from '@fintrack/api';
-import type { IAuthState, ILoginCredentials, IRegisterCredentials } from '@fintrack/core';
+import { type IAuthState, type ILoginCredentials, type IRegisterCredentials } from '@fintrack-pro/core';
+import { authApi } from '@fintrack-pro/api';
 
 const initialState: IAuthState = {
   user: null,

@@ -1,4 +1,4 @@
-import type { ITransaction } from '@fintrack/core/types';
+import { type ITransaction } from '../types';
 
 export const calculateTotals = (items: ITransaction[]) => {
   const totalIncome = items.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);

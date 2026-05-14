@@ -1,4 +1,4 @@
-import type { IPortfolioStats } from '@fintrack/core';
+import { type IPortfolioStats } from '@fintrack-pro/core';
 
 export const portfolioApi = {
   fetchStats: async (): Promise<IPortfolioStats> => {

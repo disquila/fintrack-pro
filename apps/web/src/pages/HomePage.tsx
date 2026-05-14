@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { WButton, WCard, WCol, WContainer, WRow, WTypography } from '@fintrack-pro/ui-kit';
 
-import { WButton, WCard, WCol, WContainer, WRow, WTypography } from '@fintrack/ui-kit';
+export const HomePage: React.FC = () => {
+  const navigate = useNavigate();
 
-const HomePage: React.FC = () => {
+  const navigateTo = useCallback(
+    (route: string) => {
+      navigate(route);
+    },
+    [navigate],
+  );
+
   return (
     <WContainer>
       <div className='min-h-screen py-8 sm:py-12'>
-        {/* Header */}
         <WRow justify='center' className='mb-8 sm:mb-12'>
           <WCol>
             <WTypography variant='h1' className='mb-2 text-center'>
@@ -18,7 +26,19 @@ const HomePage: React.FC = () => {
           </WCol>
         </WRow>
 
-        {/* Actions */}
+        <WRow justify='center' gap='md' className='mb-8'>
+          <WCol className='w-full md:w-auto'>
+            <WButton variant='primary' fullWidth onClick={navigateTo} context={'/test-store'}>
+              Store Test (Redux + Query)
+            </WButton>
+          </WCol>
+          <WCol className='w-full md:w-auto'>
+            <WButton variant='outline' fullWidth onClick={navigateTo} context={'/query-test'}>
+              Query Test (TanStack)
+            </WButton>
+          </WCol>
+        </WRow>
+
         <WRow justify='center' gap='md' className='mb-12'>
           <WCol className='w-full md:w-auto'>
             <WButton variant='primary' fullWidth>
@@ -32,7 +52,6 @@ const HomePage: React.FC = () => {
           </WCol>
         </WRow>
 
-        {/* Features */}
         <WRow gap='lg' justify='center'>
           {features.map((feature, index) => (
             <WCol key={index} className='w-full md:w-1/3'>
@@ -60,5 +79,3 @@ const features = [
   { icon: '📊', title: 'Аналитика', description: 'Детальные отчёты и графики' },
   { icon: '🎯', title: 'Цели', description: 'Ставьте и достигайте финансовые цели' },
 ];
-
-export default HomePage;

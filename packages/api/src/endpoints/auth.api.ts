@@ -1,4 +1,4 @@
-import type { ILoginCredentials, IRegisterCredentials, IUser } from '@fintrack/core';
+import { type ILoginCredentials, type IRegisterCredentials, type IUser } from '@fintrack-pro/core';
 
 export const authApi = {
   login: async (credentials: ILoginCredentials): Promise<{ user: IUser; token: string }> => {

@@ -1,38 +1,41 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
+import { useAddTransaction, useAppSelector, useDeleteTransaction, useTransactionsWithTotals } from '@fintrack-pro/store';
+import { WButton, WCard, WCol, WContainer, WRow, WTypography } from '@fintrack-pro/ui-kit';
 
-import { addTransaction, fetchTransactions, useAppDispatch, useAppSelector } from '@fintrack/store';
-import { WButton, WCard, WCol, WContainer, WRow, WTypography } from '@fintrack/ui-kit';
-
-const StoreTest: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const { items: transactions, isLoading, totalIncome, totalExpense } = useAppSelector(state => state.transactions);
+export const StoreTest: React.FC = () => {
   const { user } = useAppSelector(state => state.auth);
 
-  useEffect(() => {
-    dispatch(fetchTransactions());
-  }, [dispatch]);
+  const { transactions, totalIncome, totalExpense, balance, isLoading, error } = useTransactionsWithTotals();
 
-  const handleFetchTransactions = useCallback(() => {
-    dispatch(fetchTransactions());
-  }, [dispatch]);
+  const addMutation = useAddTransaction();
+  const deleteMutation = useDeleteTransaction();
 
   const handleAddRandomTransaction = useCallback(() => {
-    dispatch(
-      addTransaction({
-        amount: Math.floor(Math.random() * 1000) + 100,
-        type: Math.random() > 0.5 ? 'income' : 'expense',
-        categoryId: '1',
-        description: 'Тестовая транзакция',
-        date: new Date().toISOString(),
-      }),
+    const isIncome = Math.random() > 0.5;
+    addMutation.mutate({
+      amount: Math.floor(Math.random() * 1000) + 100,
+      type: isIncome ? 'income' : 'expense',
+      categoryId: isIncome ? 'salary' : 'food',
+      description: 'Тестовая транзакция',
+      date: new Date().toISOString(),
+    });
+  }, [addMutation]);
+
+  if (error) {
+    return (
+      <WContainer>
+        <div className='py-8'>
+          <WTypography color='error'>Ошибка: {error.message}</WTypography>
+        </div>
+      </WContainer>
     );
-  }, [dispatch]);
+  }
 
   return (
     <WContainer>
       <div className='py-8'>
         <WTypography variant='h1' className='mb-4'>
-          Redux Store Test
+          Тест Store (TanStack Query)
         </WTypography>
 
         <WCard className='mb-6'>
@@ -47,60 +50,89 @@ const StoreTest: React.FC = () => {
             Transactions Stats
           </WTypography>
           <WRow gap='md'>
-            <WCol className='w-1/2'>
-              <WTypography variant='body'>Доходы: {totalIncome} ₽</WTypography>
+            <WCol span={4}>
+              <WTypography variant='body' color='muted' className='mb-1'>
+                Доходы
+              </WTypography>
+              <WTypography variant='h3' color='primary'>
+                +{totalIncome.toLocaleString()} ₽
+              </WTypography>
             </WCol>
-            <WCol className='w-1/2'>
-              <WTypography variant='body'>Расходы: {totalExpense} ₽</WTypography>
+            <WCol span={4}>
+              <WTypography variant='body' color='muted' className='mb-1'>
+                Расходы
+              </WTypography>
+              <WTypography variant='h3' color='secondary'>
+                -{totalExpense.toLocaleString()} ₽
+              </WTypography>
+            </WCol>
+            <WCol span={4}>
+              <WTypography variant='body' color='muted' className='mb-1'>
+                Баланс
+              </WTypography>
+              <WTypography variant='h3' color={balance >= 0 ? 'primary' : 'error'}>
+                {balance >= 0 ? '+' : ''}
+                {balance.toLocaleString()} ₽
+              </WTypography>
             </WCol>
           </WRow>
         </WCard>
 
-        <WRow justify='center' gap='md' className='mb-6' wrap>
-          <WCol className='w-full md:w-auto'>
-            <WButton variant='primary' fullWidth onClick={handleFetchTransactions}>
-              Загрузить транзакции
-            </WButton>
-          </WCol>
-          <WCol className='w-full md:w-auto'>
-            <WButton variant='outline' fullWidth onClick={handleAddRandomTransaction}>
-              Добавить случайную
+        <WRow justify='center' gap='md' className='mb-6'>
+          <WCol>
+            <WButton onClick={handleAddRandomTransaction} loading={addMutation.isPending}>
+              Добавить случайную транзакцию
             </WButton>
           </WCol>
         </WRow>
 
-        {isLoading && <WTypography variant='body'>Загрузка...</WTypography>}
+        {isLoading && (
+          <WTypography variant='body' className='text-center py-8'>
+            Загрузка...
+          </WTypography>
+        )}
 
         <div className='space-y-2 max-h-96 overflow-y-auto'>
-          {transactions.map(t => (
-            <WCard key={t.id} padding='sm'>
-              <WRow justify='between' align='center'>
-                <WCol>
-                  <WTypography variant='body' weight='medium'>
-                    {t.description}
-                  </WTypography>
-                  <WTypography variant='caption' color='secondary'>
-                    {new Date(t.date).toLocaleDateString()}
-                  </WTypography>
-                </WCol>
-                <WCol>
-                  <span className={t.type === 'income' ? 'text-green-600' : 'text-red-600'}>
-                    {t.type === 'income' ? '+' : '-'} {t.amount} ₽
-                  </span>
-                </WCol>
-              </WRow>
-            </WCard>
-          ))}
+          {transactions?.map(transaction => {
+            return (
+              <WCard key={transaction.id} padding='sm'>
+                <WRow justify='between' align='center' wrap>
+                  <WCol>
+                    <WTypography variant='body' weight='medium'>
+                      {transaction.description}
+                    </WTypography>
+                    <WTypography variant='caption' color='secondary'>
+                      {new Date(transaction.date).toLocaleDateString()}
+                    </WTypography>
+                  </WCol>
+
+                  <WCol>
+                    <span className={transaction.type === 'income' ? 'text-green-600' : 'text-red-600'}>
+                      {transaction.type === 'income' ? '+' : '-'} {transaction.amount.toLocaleString()} ₽
+                    </span>
+                  </WCol>
+
+                  <WCol>
+                    <WButton
+                      size='sm'
+                      onClick={deleteMutation.mutate}
+                      context={transaction.id}
+                      loading={deleteMutation.isPending && deleteMutation.variables === transaction.id}>
+                      Удалить
+                    </WButton>
+                  </WCol>
+                </WRow>
+              </WCard>
+            );
+          })}
         </div>
 
-        {transactions.length === 0 && !isLoading && (
-          <WTypography variant='body' color='secondary' className='text-center py-8'>
-            {"Нет транзакций. Нажмите 'Загрузить' или 'Добавить случайную'"}
+        {transactions?.length === 0 && !isLoading && (
+          <WTypography variant='body' className='text-center py-8'>
+            {"Нет транзакций. Нажмите 'Добавить случайную транзакцию'"}
           </WTypography>
         )}
       </div>
     </WContainer>
   );
 };
-
-export default StoreTest;

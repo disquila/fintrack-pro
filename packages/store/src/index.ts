@@ -1,24 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit';
+// Redux (local state)
+export { store } from './redux/store';
+export { useAppDispatch, useAppSelector } from './redux/hooks';
+export { default as authReducer, login, register, logout, clearError } from './redux/slices/auth.slice';
 
-import authReducer, { clearError, login, logout, register } from './slices/auth.slice';
-import transactionsReducer, { addTransaction, clearTransactions, deleteTransaction, fetchTransactions } from './slices/transactions.slice';
-import categoriesReducer, { fetchCategories } from './slices/categories.slice';
-import portfolioReducer, { fetchPortfolioStats } from './slices/portfolio.slice';
-
-export const store = configureStore({
-  reducer: {
-    auth: authReducer,
-    transactions: transactionsReducer,
-    categories: categoriesReducer,
-    portfolio: portfolioReducer,
-  },
-});
-
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
-
-export { useAppDispatch, useAppSelector } from './hooks';
-
-export { clearError, clearTransactions, deleteTransaction };
-
-export { login, register, logout, fetchTransactions, addTransaction, fetchCategories, fetchPortfolioStats };
+// TanStack Query (server state)
+export { queryClient } from './queries/client';
+export * from './queries/transactions';
+export * from './queries/categories';
+export * from './queries/portfolio';

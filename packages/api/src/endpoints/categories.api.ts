@@ -1,4 +1,4 @@
-import type { ICategory } from '@fintrack/core';
+import { type ICategory } from '@fintrack-pro/core';
 
 export const categoriesApi = {
   fetchAll: async (): Promise<ICategory[]> => {

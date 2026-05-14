@@ -8,7 +8,7 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
       '@fintrack/core': path.resolve(__dirname, '../../packages/core/src'),
-      '@fintrack/ui': path.resolve(__dirname, '../../packages/ui-kit/src'),
+      '@fintrack/ui-kit': path.resolve(__dirname, '../../packages/ui-kit/src'),
       '@fintrack/store': path.resolve(__dirname, '../../packages/store/src'),
       '@fintrack/api': path.resolve(__dirname, '../../packages/api/src'),
     },

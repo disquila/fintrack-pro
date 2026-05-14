@@ -1,7 +1,6 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import HomePage from './pages/HomePage';
-import StoreTest from './pages/StoreTest';
+import { HomePage, QueryTest, StoreTest } from './pages';
 
 function App() {
   return (
@@ -9,6 +8,7 @@ function App() {
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/test-store' element={<StoreTest />} />
+        <Route path='/query-test' element={<QueryTest />} />
       </Routes>
     </BrowserRouter>
   );
