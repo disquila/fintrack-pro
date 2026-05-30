@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
-import { useAddTransaction, useAppSelector, useDeleteTransaction, useTransactionsWithTotals } from '@fintrack-pro/store';
+
+import { useAddTransaction, useDeleteTransaction, useTransactionsWithTotals } from '@fintrack-pro/store';
 import { WButton, WCard, WCol, WContainer, WRow, WTypography } from '@fintrack-pro/ui-kit';
+import { useAppSelector } from '../store';
 
 export const StoreTest: React.FC = () => {
   const { user } = useAppSelector(state => state.auth);

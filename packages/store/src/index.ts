@@ -1,10 +1,7 @@
-// Redux (local state)
-export { store } from './redux/store';
-export { useAppDispatch, useAppSelector } from './redux/hooks';
-export { default as authReducer, login, register, logout, clearError } from './redux/slices/auth.slice';
+export { createStore } from './redux/store';
+export type { RootState, AppDispatch } from './redux/types';
 
-// TanStack Query (server state)
 export { queryClient } from './queries/client';
-export * from './queries/transactions';
-export * from './queries/categories';
-export * from './queries/portfolio';
+export { useTransactions, useTransactionsWithTotals, useAddTransaction, useDeleteTransaction } from './queries/transactions';
+export { useCategories } from './queries/categories';
+export { usePortfolioStats } from './queries/portfolio';

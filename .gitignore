@@ -1,4 +1,91 @@
+# ============================================
+# DEPENDENCIES
+# ============================================
 node_modules/
+apps/*/node_modules/
+packages/*/node_modules/
+
+# ============================================
+# BUILD OUTPUTS
+# ============================================
 dist/
-.idea/*
+*.tsbuildinfo
+apps/web/dist/
+apps/web/.vite/
+packages/*/dist/
+
+# Bundle artifacts
+*.jsbundle
+*.bundle
+
+# ============================================
+# IDE & EDITORS
+# ============================================
+.idea/
+.vscode/
+*.iml
+*.hprof
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ============================================
+# ENVIRONMENT
+# ============================================
 .env
+.env.local
+.env.*.local
+
+# ============================================
+# LOGS & CACHE
+# ============================================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.eslintcache
+.prettiercache
+.cache/
+
+# ============================================
+# EXPO / MOBILE
+# ============================================
+apps/mobile/.expo/
+apps/mobile/web-build/
+apps/mobile/.expo-env.d.ts
+.metro-health-check*
+
+# ============================================
+# ANDROID BUILD ARTIFACTS (apps/mobile)
+# ============================================
+# Gradle build outputs
+apps/mobile/android/app/build/
+apps/mobile/android/build/
+apps/mobile/android/.gradle/
+apps/mobile/android/local.properties
+
+# CMake / native builds (ВАЖНО!)
+apps/mobile/android/app/.cxx/
+apps/mobile/android/.cxx/
+
+# IDE files
+apps/mobile/android/*.iml
+apps/mobile/android/app/*.iml
+
+# Keystore
+apps/mobile/android/app/*.keystore
+apps/mobile/android/*.keystore
+
+# Generated manifests
+apps/mobile/android/app/src/main/java/inline/
+
+# ============================================
+# TEMPORARY FILES
+# ============================================
+*.tmp
+*.temp
+TMPDIR/
+react-*
+haste-map-*

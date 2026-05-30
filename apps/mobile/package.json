@@ -1,6 +1,32 @@
 {
   "name": "@fintrack-pro/mobile",
   "version": "0.1.0",
-  "private": true,
-  "main": "index.ts"
+  "main": "expo-router/entry",
+  "scripts": {
+    "start": "npx expo start --clear",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web",
+    "adb-tcp-8081": "adb reverse tcp:8081 tcp:8081",
+    "build": "cd android && ./gradlew assembleDebug",
+    "install-debug": "cd android && adb install app/build/outputs/apk/debug/app-debug.apk"
+  },
+  "dependencies": {
+    "expo": "56.0.5",
+    "expo-linking": "56.0.12",
+    "expo-router": "56.2.7",
+    "expo-secure-store": "56.0.4",
+    "expo-status-bar": "56.0.4",
+    "react": "19.2.3",
+    "react-native": "0.85.3",
+    "react-native-reanimated": "4.3.1",
+    "react-native-safe-area-context": "5.8.0",
+    "react-native-screens": "4.25.2",
+    "react-native-worklets": "0.8.3"
+  },
+  "devDependencies": {
+    "nativewind": "4.2.4",
+    "tailwindcss": "3.4.17"
+  },
+  "private": true
 }

@@ -5,7 +5,16 @@
   "main": "src/index.ts",
   "types": "src/index.ts",
   "peerDependencies": {
-    "react": "19.0.0",
-    "react-dom": "19.0.0"
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-native": "0.85.3"
+  },
+  "peerDependenciesMeta": {
+    "react-dom": {
+      "optional": true
+    },
+    "react-native": {
+      "optional": true
+    }
   }
 }

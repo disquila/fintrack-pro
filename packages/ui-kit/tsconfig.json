@@ -3,7 +3,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": ["nativewind/types"]
   },
   "include": ["src/**/*"]
 }

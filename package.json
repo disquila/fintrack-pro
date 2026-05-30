@@ -10,26 +10,21 @@
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
-    "@types/node": "25.7.0",
-    "@types/react": "19.0.0",
-    "@types/react-dom": "19.0.0",
+    "@types/node": "20.17.0",
+    "@types/react": "19.2.3",
+    "@types/react-dom": "19.2.3",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
-    "@vitejs/plugin-react": "6.0.1",
-    "autoprefixer": "10.5.0",
+    "typescript": "5.4.5",
     "eslint": "8.57.1",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-react": "7.37.5",
-    "eslint-plugin-react-hooks": "7.0.1",
+    "eslint-plugin-react-hooks": "5.1.0",
     "eslint-plugin-react-native": "5.0.0",
     "husky": "9.1.7",
     "lint-staged": "15.5.2",
-    "postcss": "8.5.14",
-    "prettier": "3.8.1",
-    "tailwindcss": "4.3.0",
-    "typescript": "5.4.5",
-    "vite": "8.0.12"
+    "prettier": "3.8.1"
   },
   "workspaces": [
     "packages/core",
@@ -48,9 +43,5 @@
       "prettier --write"
     ]
   },
-  "dependencies": {
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
-    "react-router-dom": "7.0.0"
-  }
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

@@ -1,16 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { type StorageService } from '@fintrack-pro/core';
+import { createAuthSlice } from './slices/auth.slice';
 
-import authReducer, { login, logout, register } from './slices/auth.slice';
+export const createStore = (storage: StorageService) => {
+  const authSlice = createAuthSlice(storage);
 
-export const store = configureStore({
-  reducer: {
-    auth: authReducer,
-  },
-});
+  const store = configureStore({
+    reducer: {
+      auth: authSlice.reducer,
+    },
+  });
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
-
-export { useAppDispatch, useAppSelector } from './hooks';
-
-export { login, register, logout };
+  return {
+    store,
+    authActions: authSlice.actions,
+    authThunks: authSlice.thunks,
+  };
+};

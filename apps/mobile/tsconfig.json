@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "strict": true,
+    "jsx": "react-native",
+    "lib": ["ESNext"],
+    "types": ["react-native", "expo", "nativewind/types"],
+    "baseUrl": ".",
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*", "App.tsx", "nativewind-env.d.ts"],
+  "exclude": ["node_modules"]
+}
