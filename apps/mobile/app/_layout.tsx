@@ -1,9 +1,11 @@
 import { Stack } from 'expo-router';
-
 import '../global.css';
 import Providers from './providers';
+import { useSplash } from '../src/hooks/useSplash';
 
 export default function Layout() {
+  useSplash();
+
   return (
     <Providers>
       <Stack>
