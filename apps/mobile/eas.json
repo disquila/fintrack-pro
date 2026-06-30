@@ -1,0 +1,30 @@
+{
+  "cli": {
+    "version": ">= 20.1.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "env": {
+        "APP_ENV": "development"
+      },
+      "developmentClient": true,
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production": {
+      "env": {
+        "APP_ENV": "production"
+      },
+      "autoIncrement": true,
+      "android": {
+        "buildType": "app-bundle"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "@fintrack-pro/shared",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./lib": "./src/lib/index.ts",
+    "./types": "./src/types/index.ts",
+    "./ui/mobile": "./src/ui/mobile/index.ts",
+    "./ui/web": "./src/ui/web/index.ts"
+  },
+  "peerDependencies": {
+    "react": "19.2.3",
+    "react-native": "0.85.3",
+    "react-dom": "19.2.3",
+    "nativewind": "4.2.4",
+    "firebase": "12.14.0"
+  },
+  "peerDependenciesMeta": {
+    "react-native": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    },
+    "nativewind": {
+      "optional": true
+    }
+  }
+}

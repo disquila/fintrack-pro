@@ -1,0 +1,22 @@
+{
+  "name": "@fintrack-pro/features",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./auth": "./src/auth/index.ts",
+    "./categories": "./src/categories/index.ts",
+    "./portfolio": "./src/portfolio/index.ts",
+    "./transactions": "./src/transactions/index.ts"
+  },
+  "dependencies": {
+    "@fintrack-pro/shared": "0.1.0",
+    "@fintrack-pro/entities": "0.1.0"
+  },
+  "peerDependencies": {
+    "@reduxjs/toolkit": "2.2.0",
+    "react-redux": "9.1.0",
+    "@tanstack/react-query": "5.100.10",
+    "react": "19.2.3"
+  }
+}

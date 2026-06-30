@@ -9,13 +9,16 @@
     "format": "prettier --write .",
     "type-check": "tsc --noEmit"
   },
+  "dependencies": {
+    "firebase": "12.14.0"
+  },
   "devDependencies": {
+    "@types/firebase": "3.2.3",
     "@types/node": "20.17.0",
     "@types/react": "19.2.3",
     "@types/react-dom": "19.2.3",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
-    "typescript": "5.4.5",
     "eslint": "8.57.1",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
@@ -24,15 +27,15 @@
     "eslint-plugin-react-native": "5.0.0",
     "husky": "9.1.7",
     "lint-staged": "15.5.2",
-    "prettier": "3.8.1"
+    "prettier": "3.8.1",
+    "typescript": "5.4.5"
   },
   "workspaces": [
-    "packages/core",
-    "packages/ui-kit",
-    "packages/store",
-    "packages/api",
-    "apps/web",
-    "apps/mobile"
+    "apps/*",
+    "packages/shared",
+    "packages/entities",
+    "packages/features",
+    "packages/app"
   ],
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -42,6 +45,5 @@
     "*.{json,md,yml,yaml}": [
       "prettier --write"
     ]
-  },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  }
 }

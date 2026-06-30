@@ -70,6 +70,23 @@ module.exports = {
     ],
     '@typescript-eslint/no-var-requires': 'off',
 
+    // ЗАЩИТА ГРАНИЦ МОНОРЕПЫ
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: [
+          {
+            group: ['@fintrack-pro/web', '@fintrack-pro/web/*', '@fintrack-pro/mobile', '@fintrack-pro/mobile/*'],
+            message: 'Запрещен алиас текущего пакета внутри самого себя.',
+          },
+          {
+            group: ['../../packages/*', '../packages/*'],
+            message: 'Запрещен относительный импорт между пакетами монорепы.',
+          },
+        ],
+      },
+    ],
+
     // ОБЩИЕ
     'no-console': ['warn', { allow: ['warn', 'error'] }],
     'no-debugger': 'warn',
@@ -105,6 +122,7 @@ module.exports = {
         '@typescript-eslint/restrict-plus-operands': 'off',
         '@typescript-eslint/no-var-requires': 'off',
         'no-console': 'off',
+        'no-restricted-imports': 'off',
       },
     },
     // ===== WEB ПРИЛОЖЕНИЕ =====
@@ -125,7 +143,7 @@ module.exports = {
     {
       files: ['packages/**/*.{ts,tsx}'],
       settings: {
-        react: { version: '19.0.0' },
+        react: { version: 'detect' },
       },
     },
     // ===== ТЕСТЫ =====

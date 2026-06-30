@@ -1,57 +1,58 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
-import { MButton, MCard, MCol, MContainer, MRow, MTypography } from '@fintrack-pro/ui-kit';
 import { useRouter } from 'expo-router';
+
+import { Button, Card, Col, Container, Row, Typography } from '@fintrack-pro/shared/ui/mobile';
 
 export const HomePage: React.FC = () => {
   const router = useRouter();
 
   return (
-    <MContainer safeArea>
+    <Container safeArea>
       <ScrollView className='flex-1 py-8'>
-        <MCol className='items-center mb-8'>
-          <MTypography variant='h1' className='text-center mb-2'>
+        <Col className='items-center mb-8'>
+          <Typography variant='h1' className='text-center mb-2'>
             FinTrack Pro
-          </MTypography>
-          <MTypography variant='body' color='secondary' className='text-center'>
+          </Typography>
+          <Typography variant='body' color='secondary' className='text-center'>
             Умный способ управлять финансами
-          </MTypography>
-        </MCol>
+          </Typography>
+        </Col>
 
-        <MRow justify='center' gap='md' className='mb-8'>
-          <MCol className='w-1/2'>
-            <MButton variant='primary' onClick={router.navigate} context={'/test-store'}>
+        <Row justify='center' gap='md' className='mb-8'>
+          <Col className='w-1/2'>
+            <Button variant='primary' onClick={router.navigate} context={'/test-store'}>
               Store Test
-            </MButton>
-          </MCol>
-          <MCol className='w-1/2'>
-            <MButton variant='outline' onClick={router.navigate} context={'/query-test'}>
+            </Button>
+          </Col>
+          <Col className='w-1/2'>
+            <Button variant='outline' onClick={router.navigate} context={'/query-test'}>
               Query Test
-            </MButton>
-          </MCol>
-        </MRow>
+            </Button>
+          </Col>
+        </Row>
 
-        <MRow gap='lg' justify='center' className='flex-wrap'>
+        <Row gap='lg' justify='center' className='flex-wrap'>
           {features.map((feature, index) => (
-            <MCol key={index} className='w-full mb-4'>
-              <MCard padding='lg'>
-                <MCol className='items-center'>
-                  <MTypography variant='h1' className='text-4xl mb-3'>
+            <Col key={index} className='w-full mb-4'>
+              <Card padding='lg'>
+                <Col className='items-center'>
+                  <Typography variant='h1' className='text-4xl mb-3'>
                     {feature.icon}
-                  </MTypography>
-                  <MTypography variant='h3' className='text-center mb-2'>
+                  </Typography>
+                  <Typography variant='h3' className='text-center mb-2'>
                     {feature.title}
-                  </MTypography>
-                  <MTypography variant='body' color='secondary' className='text-center'>
+                  </Typography>
+                  <Typography variant='body' color='secondary' className='text-center'>
                     {feature.description}
-                  </MTypography>
-                </MCol>
-              </MCard>
-            </MCol>
+                  </Typography>
+                </Col>
+              </Card>
+            </Col>
           ))}
-        </MRow>
+        </Row>
       </ScrollView>
-    </MContainer>
+    </Container>
   );
 };
 

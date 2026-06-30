@@ -1,0 +1,30 @@
+{
+  "name": "@fintrack-pro/app",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./store": "./src/store/index.ts"
+  },
+  "dependencies": {
+    "@fintrack-pro/shared": "0.1.0",
+    "@fintrack-pro/entities": "0.1.0",
+    "@fintrack-pro/features": "0.1.0"
+  },
+  "peerDependencies": {
+    "@reduxjs/toolkit": "2.2.0",
+    "@tanstack/react-query": "5.100.10",
+    "react-redux": "9.1.0",
+    "react": "19.2.3",
+    "react-native": "0.85.3",
+    "react-dom": "19.2.3"
+  },
+  "peerDependenciesMeta": {
+    "react-native": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  }
+}

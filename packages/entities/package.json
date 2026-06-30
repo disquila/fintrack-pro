@@ -1,0 +1,19 @@
+{
+  "name": "@fintrack-pro/entities",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./category": "./src/category/index.ts",
+    "./portfolio": "./src/portfolio/index.ts",
+    "./transaction": "./src/transaction/index.ts",
+    "./user": "./src/user/index.ts"
+  },
+  "dependencies": {
+    "@fintrack-pro/shared": "0.1.0"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "5.100.10",
+    "react": "19.2.3"
+  }
+}

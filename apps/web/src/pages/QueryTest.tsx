@@ -1,106 +1,115 @@
-import { useCallback } from 'react';
-import { useAddTransaction, useDeleteTransaction, useTransactionsWithTotals } from '@fintrack-pro/store';
-import { WButton, WCard, WContainer, WTypography } from '@fintrack-pro/ui-kit';
+import React, { useCallback } from 'react';
 
-export const QueryTest = () => {
-  const { transactions, totalIncome, totalExpense, balance, isLoading, error } = useTransactionsWithTotals();
+import { useAddTransaction, useDeleteTransaction, useTransactionsWithTotals } from '@fintrack-pro/features/transactions';
+import { Button, Card, Container, Typography } from '@fintrack-pro/shared/ui/web';
+import { useAppSelector } from '@fintrack-pro/app/store';
 
+export const QueryTest: React.FC = () => {
+  const { user } = useAppSelector(state => state.auth);
+  const { transactions, totalIncome, totalExpense, balance } = useTransactionsWithTotals();
   const addMutation = useAddTransaction();
   const deleteMutation = useDeleteTransaction();
 
-  const handleAddTestTransaction = useCallback(() => {
+  const handleAddRandomTransaction = useCallback(() => {
     const isIncome = Math.random() > 0.5;
     addMutation.mutate({
       amount: Math.floor(Math.random() * 1000) + 100,
       type: isIncome ? 'income' : 'expense',
-      categoryId: isIncome ? 'salary' : 'food',
+      categoryId: isIncome ? '1' : '2',
       description: 'Тестовая транзакция',
       date: new Date().toISOString(),
     });
   }, [addMutation]);
 
-  if (isLoading) return <WTypography>Загрузка...</WTypography>;
-  if (error) return <WTypography>Ошибка: {error.message}</WTypography>;
-
   return (
-    <WContainer maxWidth='lg' className='py-8'>
-      <WTypography variant='h2' className='mb-6'>
-        Тест TanStack Query
-      </WTypography>
+    <Container>
+      <div className='py-8'>
+        <Typography variant='h1' className='mb-4'>
+          Тест Query
+        </Typography>
 
-      <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6'>
-        <WCard padding='md'>
-          <WTypography variant='body' color='muted' className='mb-1'>
-            Доходы
-          </WTypography>
-          <WTypography variant='h3' color='primary'>
-            +{totalIncome.toLocaleString()} ₽
-          </WTypography>
-        </WCard>
+        <Card className='mb-6'>
+          <Typography variant='h3' className='mb-2'>
+            Auth State
+          </Typography>
+          <Typography variant='body'>User: {user ? user.displayName : 'Не авторизован'}</Typography>
+        </Card>
 
-        <WCard padding='md'>
-          <WTypography variant='body' color='muted' className='mb-1'>
-            Расходы
-          </WTypography>
-          <WTypography variant='h3' color='secondary'>
-            -{totalExpense.toLocaleString()} ₽
-          </WTypography>
-        </WCard>
+        <Card className='mb-6'>
+          <Typography variant='h3' className='mb-2'>
+            Transactions Stats
+          </Typography>
+          <div className='flex gap-4 flex-wrap'>
+            <div className='flex-1'>
+              <Typography variant='body' color='muted' className='mb-1'>
+                Доходы
+              </Typography>
+              <Typography variant='h3' color='primary'>
+                +{totalIncome.toLocaleString()} ₽
+              </Typography>
+            </div>
+            <div className='flex-1'>
+              <Typography variant='body' color='muted' className='mb-1'>
+                Расходы
+              </Typography>
+              <Typography variant='h3' color='secondary'>
+                -{totalExpense.toLocaleString()} ₽
+              </Typography>
+            </div>
+            <div className='flex-1'>
+              <Typography variant='body' color='muted' className='mb-1'>
+                Баланс
+              </Typography>
+              <Typography variant='h3' color={balance >= 0 ? 'primary' : 'error'}>
+                {balance >= 0 ? '+' : ''}
+                {balance.toLocaleString()} ₽
+              </Typography>
+            </div>
+          </div>
+        </Card>
 
-        <WCard padding='md'>
-          <WTypography variant='body' color='muted' className='mb-1'>
-            Баланс
-          </WTypography>
-          <WTypography variant='h3' color={balance >= 0 ? 'primary' : 'error'}>
-            {balance >= 0 ? '+' : ''}
-            {balance.toLocaleString()} ₽
-          </WTypography>
-        </WCard>
-      </div>
+        <Button onClick={handleAddRandomTransaction} loading={addMutation.isPending} className='mb-6'>
+          Добавить случайную транзакцию
+        </Button>
 
-      <WButton onClick={handleAddTestTransaction} loading={addMutation.isPending} className='mb-6'>
-        Добавить тестовую транзакцию
-      </WButton>
-
-      <div className='space-y-2'>
-        {transactions?.map(transaction => {
-          return (
-            <WCard key={transaction.id} padding='md'>
-              <div className='flex flex-wrap items-center justify-between gap-4'>
-                <div>
-                  <WTypography>{transaction.description || transaction.categoryId}</WTypography>
-                  <WTypography variant='caption' color='muted'>
-                    {new Date(transaction.date).toLocaleDateString()}
-                  </WTypography>
-                </div>
-
-                <div>
-                  <WTypography color={transaction.type === 'income' ? 'primary' : 'secondary'} className='font-semibold'>
-                    {transaction.type === 'income' ? '+' : '-'}
-                    {transaction.amount.toLocaleString()} ₽
-                  </WTypography>
-                </div>
-
-                <div>
-                  <WButton
-                    size='sm'
-                    onClick={deleteMutation.mutate}
-                    context={transaction.id}
-                    loading={deleteMutation.isPending && deleteMutation.variables === transaction.id}>
-                    Удалить
-                  </WButton>
-                </div>
+        {transactions.map(transaction => (
+          <Card key={transaction.id} className='mb-2'>
+            <div className='flex justify-between items-center'>
+              <div className='flex-1'>
+                <Typography variant='body' weight='medium'>
+                  {transaction.description}
+                </Typography>
+                <Typography variant='caption' color='secondary'>
+                  {new Date(transaction.date).toLocaleDateString()}
+                </Typography>
               </div>
-            </WCard>
-          );
-        })}
-      </div>
+              <div>
+                <Typography variant='body' color={transaction.type === 'income' ? 'primary' : 'error'} weight='bold'>
+                  {transaction.type === 'income' ? '+' : '-'}
+                  {transaction.amount.toLocaleString()} ₽
+                </Typography>
+              </div>
+              <div>
+                <Button
+                  size='sm'
+                  onClick={deleteMutation.mutate}
+                  context={transaction.id}
+                  loading={deleteMutation.isPending && deleteMutation.variables === transaction.id}>
+                  Удалить
+                </Button>
+              </div>
+            </div>
+          </Card>
+        ))}
 
-      {transactions?.length === 0 && (
-        <WCard padding='lg' className='text-center'>
-          <WTypography color='muted'>{"Нет транзакций. Нажмите кнопку 'Добавить', чтобы создать первую."}</WTypography>
-        </WCard>
-      )}
-    </WContainer>
+        {transactions.length === 0 && (
+          <Card className='py-8 text-center'>
+            <Typography color='muted'>{'Нет транзакций. Нажмите "Добавить случайную транзакцию"'}</Typography>
+          </Card>
+        )}
+      </div>
+    </Container>
   );
 };
+
+export default QueryTest;

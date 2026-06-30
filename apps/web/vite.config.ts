@@ -4,13 +4,10 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
+  envDir: path.resolve(__dirname, 'config'),
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      '@fintrack/core': path.resolve(__dirname, '../../packages/core/src'),
-      '@fintrack/ui-kit': path.resolve(__dirname, '../../packages/ui-kit/src'),
-      '@fintrack/store': path.resolve(__dirname, '../../packages/store/src'),
-      '@fintrack/api': path.resolve(__dirname, '../../packages/api/src'),
     },
   },
   server: {
@@ -18,7 +15,10 @@ export default defineConfig({
     open: true,
   },
   build: {
-    outDir: '../dist',
+    outDir: './dist',
     emptyOutDir: true,
+  },
+  optimizeDeps: {
+    exclude: ['@fintrack-pro/shared', '@fintrack-pro/entities', '@fintrack-pro/features', '@fintrack-pro/app'],
   },
 });

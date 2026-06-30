@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   presets: [require('nativewind/preset')],
-  content: ['./App.tsx', './global.css', './src/**/*.{js,jsx,ts,tsx}', '../../packages/ui-kit/src/mobile/**/*.{js,jsx,ts,tsx}'],
+  content: ['./App.tsx', './global.css', './src/**/*.{js,jsx,ts,tsx}', '../../packages/shared/src/ui/mobile/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
       colors: {

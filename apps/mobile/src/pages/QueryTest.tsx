@@ -1,12 +1,12 @@
 import React, { useCallback } from 'react';
 import { ActivityIndicator, ScrollView } from 'react-native';
 
-import { useAddTransaction, useDeleteTransaction, useTransactionsWithTotals } from '@fintrack-pro/store';
-import { MButton, MCard, MCol, MContainer, MRow, MTypography } from '@fintrack-pro/ui-kit';
-import { useAppSelector } from '../store';
+import { useAddTransaction, useDeleteTransaction, useTransactionsWithTotals } from '@fintrack-pro/features/transactions';
+import { Button, Card, Col, Container, Row, Typography } from '@fintrack-pro/shared/ui/mobile';
+import { useAppSelector } from '@fintrack-pro/app/store';
 
 export const QueryTest: React.FC = () => {
-  const { user } = useAppSelector(state => state.auth); // ← добавить
+  const { user } = useAppSelector(state => state.auth);
   const { transactions, totalIncome, totalExpense, balance, isLoading, error } = useTransactionsWithTotals();
   const addMutation = useAddTransaction();
   const deleteMutation = useDeleteTransaction();
@@ -16,7 +16,7 @@ export const QueryTest: React.FC = () => {
     addMutation.mutate({
       amount: Math.floor(Math.random() * 1000) + 100,
       type: isIncome ? 'income' : 'expense',
-      categoryId: isIncome ? 'salary' : 'food',
+      categoryId: isIncome ? '1' : '2',
       description: 'Тестовая транзакция',
       date: new Date().toISOString(),
     });
@@ -24,108 +24,108 @@ export const QueryTest: React.FC = () => {
 
   if (error) {
     return (
-      <MContainer safeArea>
-        <MTypography color='error'>Ошибка: {error.message}</MTypography>
-      </MContainer>
+      <Container safeArea>
+        <Typography color='error'>Ошибка: {error.message}</Typography>
+      </Container>
     );
   }
 
   return (
-    <MContainer safeArea>
+    <Container safeArea>
       <ScrollView className='flex-1 py-8'>
-        <MTypography variant='h1' className='mb-4'>
-          Тест Store
-        </MTypography>
+        <Typography variant='h1' className='mb-4'>
+          Тест Query
+        </Typography>
 
-        <MCard className='mb-6'>
-          <MTypography variant='h3' className='mb-2'>
+        <Card className='mb-6'>
+          <Typography variant='h3' className='mb-2'>
             Auth State
-          </MTypography>
-          <MTypography variant='body'>User: {user ? user.name : 'Не авторизован'}</MTypography>
-        </MCard>
+          </Typography>
+          <Typography variant='body'>User: {user ? user.displayName : 'Не авторизован'}</Typography>
+        </Card>
 
-        <MCard className='mb-6'>
-          <MTypography variant='h3' className='mb-2'>
+        <Card className='mb-6'>
+          <Typography variant='h3' className='mb-2'>
             Transactions Stats
-          </MTypography>
-          <MRow gap='md' className='flex-wrap'>
-            <MCol className='flex-1'>
-              <MTypography variant='body' color='muted' className='mb-1'>
+          </Typography>
+          <Row gap='md' className='flex-wrap'>
+            <Col className='flex-1'>
+              <Typography variant='body' color='muted' className='mb-1'>
                 Доходы
-              </MTypography>
-              <MTypography variant='h3' color='primary'>
+              </Typography>
+              <Typography variant='h3' color='primary'>
                 +{totalIncome.toLocaleString()} ₽
-              </MTypography>
-            </MCol>
-            <MCol className='flex-1'>
-              <MTypography variant='body' color='muted' className='mb-1'>
+              </Typography>
+            </Col>
+            <Col className='flex-1'>
+              <Typography variant='body' color='muted' className='mb-1'>
                 Расходы
-              </MTypography>
-              <MTypography variant='h3' color='secondary'>
+              </Typography>
+              <Typography variant='h3' color='secondary'>
                 -{totalExpense.toLocaleString()} ₽
-              </MTypography>
-            </MCol>
-            <MCol className='flex-1'>
-              <MTypography variant='body' color='muted' className='mb-1'>
+              </Typography>
+            </Col>
+            <Col className='flex-1'>
+              <Typography variant='body' color='muted' className='mb-1'>
                 Баланс
-              </MTypography>
-              <MTypography variant='h3' color={balance >= 0 ? 'primary' : 'error'}>
+              </Typography>
+              <Typography variant='h3' color={balance >= 0 ? 'primary' : 'error'}>
                 {balance >= 0 ? '+' : ''}
                 {balance.toLocaleString()} ₽
-              </MTypography>
-            </MCol>
-          </MRow>
-        </MCard>
+              </Typography>
+            </Col>
+          </Row>
+        </Card>
 
-        <MButton onClick={handleAddRandomTransaction} loading={addMutation.isPending} className='mb-6'>
+        <Button onClick={handleAddRandomTransaction} loading={addMutation.isPending} className='mb-6'>
           Добавить случайную транзакцию
-        </MButton>
+        </Button>
 
         {isLoading ? (
           <ActivityIndicator size='large' />
         ) : (
           <>
             {transactions?.map(transaction => (
-              <MCard key={transaction.id} className='mb-2'>
-                <MRow justify='between' align='center' wrap>
-                  <MCol className='flex-1'>
-                    <MTypography variant='body' weight='medium'>
+              <Card key={transaction.id} className='mb-2'>
+                <Row justify='between' align='center' wrap>
+                  <Col className='flex-1'>
+                    <Typography variant='body' weight='medium'>
                       {transaction.description}
-                    </MTypography>
-                    <MTypography variant='caption' color='secondary'>
+                    </Typography>
+                    <Typography variant='caption' color='secondary'>
                       {new Date(transaction.date).toLocaleDateString()}
-                    </MTypography>
-                  </MCol>
-                  <MCol>
-                    <MTypography variant='body' color={transaction.type === 'income' ? 'primary' : 'error'} weight='bold'>
+                    </Typography>
+                  </Col>
+                  <Col>
+                    <Typography variant='body' color={transaction.type === 'income' ? 'primary' : 'error'} weight='bold'>
                       {transaction.type === 'income' ? '+' : '-'}
                       {transaction.amount.toLocaleString()} ₽
-                    </MTypography>
-                  </MCol>
-                  <MCol>
-                    <MButton
+                    </Typography>
+                  </Col>
+                  <Col>
+                    <Button
                       size='sm'
                       onClick={deleteMutation.mutate}
                       context={transaction.id}
                       loading={deleteMutation.isPending && deleteMutation.variables === transaction.id}>
                       Удалить
-                    </MButton>
-                  </MCol>
-                </MRow>
-              </MCard>
+                    </Button>
+                  </Col>
+                </Row>
+              </Card>
             ))}
           </>
         )}
 
         {transactions?.length === 0 && !isLoading && (
-          <MCard className='py-8 items-center'>
-            <MTypography color='muted' className='text-center'>
-              {"Нет транзакций. Нажмите 'Добавить случайную транзакцию'"}
-            </MTypography>
-          </MCard>
+          <Card className='py-8 items-center'>
+            <Typography color='muted' className='text-center'>
+              {'Нет транзакций. Нажмите "Добавить случайную транзакцию"'}
+            </Typography>
+          </Card>
         )}
       </ScrollView>
-    </MContainer>
+    </Container>
   );
 };
 

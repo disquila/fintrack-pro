@@ -31,11 +31,13 @@ packages/*/dist/
 Thumbs.db
 
 # ============================================
-# ENVIRONMENT
+# ENVIRONMENT & Google Services
 # ============================================
 .env
+*.env
 .env.local
 .env.*.local
+google-services*.json
 
 # ============================================
 # LOGS & CACHE
@@ -55,31 +57,9 @@ yarn-error.log*
 apps/mobile/.expo/
 apps/mobile/web-build/
 apps/mobile/.expo-env.d.ts
+apps/mobile/android/
+apps/mobile/ios/
 .metro-health-check*
-
-# ============================================
-# ANDROID BUILD ARTIFACTS (apps/mobile)
-# ============================================
-# Gradle build outputs
-apps/mobile/android/app/build/
-apps/mobile/android/build/
-apps/mobile/android/.gradle/
-apps/mobile/android/local.properties
-
-# CMake / native builds (ВАЖНО!)
-apps/mobile/android/app/.cxx/
-apps/mobile/android/.cxx/
-
-# IDE files
-apps/mobile/android/*.iml
-apps/mobile/android/app/*.iml
-
-# Keystore
-apps/mobile/android/app/*.keystore
-apps/mobile/android/*.keystore
-
-# Generated manifests
-apps/mobile/android/app/src/main/java/inline/
 
 # ============================================
 # TEMPORARY FILES
